@@ -33,7 +33,7 @@ function enviarFormulario(){
 	}
 
 	direccion = direccion.value
-	direccion = direccion.toLowerCase();
+	direccion = direccion.toLowerCase();//convierte la dirección a letras minusculas para poder validar sin discriminar mayusculas 
 	var val =0;
 
 	if(direccion.startsWith('cll') || direccion.startsWith('cra') || direccion.startsWith('av') || direccion.startsWith('anv') || direccion.startsWith('trans')){
