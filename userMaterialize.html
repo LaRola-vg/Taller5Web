@@ -4,25 +4,53 @@
 	<title>Registro User Materialize</title>
 	<meta charset="utf-8">
 	<!--Import Google Icon Font-->
-     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+	<style type="text/css">
+		.multi-range, .multi-range * { box-sizing: border-box; padding: auto; margin: auto; }
+		.multi-range { 
+    		position: relative; width: 300px; height: 28px; margin: 50px;
+    		font-family: monospace;
+		}
+		.multi-range > hr { position: absolute; width: 100%; top: 50%; }
+		.multi-range > input[type=range] {
+    		width: calc(100% - 16px); 
+    		position: absolute; bottom: 6px; left: 0;
+		}
+		.multi-range > input[type=range]:last-of-type { margin-left: 30px; }
+		.multi-range > input[type=range]::-webkit-slider-thumb { transform: translateY(-18px); }
+		.multi-range > input[type=range]::-webkit-slider-runnable-track { -webkit-appearance: none; height: 0px; }
+		.multi-range > input[type=range]::-moz-range-thumb { transform: translateY(-18px); }
+		.multi-range > input[type=range]::-moz-range-track { -webkit-appearance: none; height: 0px; }
+		.multi-range > input[type=range]::-ms-thumb { transform: translateY(-18px); }
+		.multi-range > input[type=range]::-ms-track { -webkit-appearance: none; height: 0px; }
+		.multi-range::after { 
+    		content: attr(data-lbound) ' - ' attr(data-ubound); 
+    		position: absolute; top: 0; left: 105%; white-space: nowrap;
+    		display: block; padding: 0px 5px; margin: 15px 2px;
+    		height: 26px; width: auto; border: 1px solid #ddd; 
+    		font-size: 13px; line-height: 20px;
+		}
+	</style>
 
 	<script type="text/javascript">
 		$(document).ready(function(){
     		$('select').formSelect();
   		});
 	</script>
+
 	<script type="text/javascript">
-		  $(document).ready(function(){
-    $('.datepicker').datepicker();
-  })
+		$(document).ready(function(){
+    		$('.datepicker').datepicker();
+  		});
 	</script>
+
 </head>
 <body>
 	<div class="section container">
@@ -56,7 +84,7 @@
 					</div>
 					<div class="input-field col s6">
 						<input type="text" id="ccusuario">
-						<label for="ccusuario">Ccusuario</label>
+						<label for="ccusuario">CC del usuario</label>
 					</div>
 					<div class="input-field col s6">
 						<select id="id_pais">
@@ -74,14 +102,65 @@
 						<input type="password" id="ccpaswdValidate">
 						<label for="password">Escriba su contraseña nuevamente</label>
 					</div>
-					<button class="btn" type="submit" onclick="return enviarFormulario()">Enviar</button>
+					<div class='input-field col s4 multi-range' data-lbound='20' data-ubound='150'>
+    					<hr />
+    						<label>Rango de precios (en millones)</label>
+    						<input type='range' min='20' max='150' step='1' value='20' oninput='this.parentNode.dataset.lbound=this.value;'/>
+    						<input type='range' min='20' max='150' step='1' value='150' oninput='this.parentNode.dataset.ubound=this.value;'/>
+					</div>
+					<div class="input-field col s3">
+						<form>
+							<label>
+								<input id="radio" type="radio" onclick="show()">
+								<span> Mostrar preferencias </span>
+							</label>
+						</form>
+					</div>
+					<div class="input-field col s2" id="act" hidden="true">
+						<select id="color">
+							<option value="0">Color</option>
+   							<option value="1">Amarillo</option>
+   							<option value="2">Azul</option>
+   							<option value="3">Rojo</option>
+   							<option value="4">Verde</option>
+   							<option value="5">Naranja</option>
+   							<option value="6">Morado</option>
+   						</select>
+						<select id="marca">
+							<option value="0">Marca</option>
+   							<option value="1">Audi</option>
+   							<option value="2">BMW</option>
+   							<option value="3">Chevrolet</option>
+   							<option value="4">Ford</option>
+   							<option value="5">Kia</option>
+   							<option value="6">Toyota</option>
+   						</select>
+						<select id="estilo">
+							<option value="0">Estilo</option>
+   							<option value="1">Monovolumen</option>
+   							<option value="2">Sedán</option>
+   							<option value="3">Descapotable</option>
+   							<option value="4">Familiar</option>
+   							<option value="5">Todoterreno</option>
+   							<option value="6">Deportivo</option>
+   						</select>
+						<select id="modelo">
+							<option value="0">Modelo</option>
+   							<option value="1">Allroad</option>
+   							<option value="2">Z3</option>
+   							<option value="3">Camaro</option>
+   							<option value="4">Fusion</option>
+   							<option value="5">New Rio</option>
+   							<option value="6">Supra</option>
+   						</select>
+					</div>
+					<button class="btn-large right" type="submit" onclick="return enviarFormulario()">Enviar</button>
 				</div>
 			</form>
-			<div id="error"></div><!-- AQUI SE ESTÁ IMPRIMENDO LOS ERRORES -->
 		</div>
 	</div>
 	<script type="text/javascript" src="js/materialize.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<script src="validacion.js"></script>
-</body>
+</body>	
 </html>
